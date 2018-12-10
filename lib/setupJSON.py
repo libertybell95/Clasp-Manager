@@ -1,4 +1,5 @@
-# Used to perform setup of JSON config file
+"""Used to perform setup of JSON config file."""
+
 import json
 import os
 
