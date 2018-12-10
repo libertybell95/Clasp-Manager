@@ -1,3 +1,5 @@
+# GAS = Google Apps Script
+
 import os
 import json
 import re  # Regular Expressions (https://docs.python.org/3.7/library/re.html)
@@ -12,7 +14,7 @@ class claspTools:
                 
         def createProject(self, name, scriptID):
                 """
-                Create a new projects folder with nessecary setup files and pulls it from clasp
+                Create a new projects folder with nessecary setup files and pulls project from GAS via clasp
 
                 :param name: {string} - Name of folder to be created \n
                 :param name: {string} - scriptID to create .clasp.JSON file
@@ -40,12 +42,3 @@ class claspTools:
                                 json.dump(data, f, indent=4)
 
                         subprocess.check_output("clasp pull", shell=True) # Grabs files from Google Apps Script
-
-# def getList():
-#     cmdOut = subprocess.check_output("clasp list", shell=True).decode("UTF-8") # Fetches raw console output of 'clasp list'
-
-#     initRe = re.findall(r"1G(\w.[\s\S]*)", cmdOut)[0]# Filters out unwanted characters so only script name and URLs are found
-#     scriptInfoRe = re.finditer(r"(.*?)\s{2}.*\s.*d/(.*)/", initRe) # Seperates name and script ID into a group
-
-#     for i in scriptInfoRe:
-#         print(i.group(1)+" | "+i.group(2))
