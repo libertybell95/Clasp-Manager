@@ -14,7 +14,7 @@ class claspTools:
                 
         def createProject(self, name, scriptID):
                 """
-                Create a new projects folder with nessecary setup files and pulls project from GAS via clasp
+                Create a new projects folder with nessecary setup files and pulls project from GAS.
 
                 :param name: {string} - Name of folder to be created \n
                 :param name: {string} - scriptID to create .clasp.JSON file
@@ -42,3 +42,19 @@ class claspTools:
                                 json.dump(data, f, indent=4)
 
                         subprocess.check_output("clasp pull", shell=True) # Grabs files from Google Apps Script
+
+        def pullProject(self, name):
+                """
+                Updates/Pulls project folder from GAS.
+
+                :param name: {string} - Name of project folder to be updated
+                """
+                if not isinstance(name, str):
+                        raise ValueError("pullFolder(): ")
+                
+                workPath = os.path.dirname(self.config["directory"]+"\\projects\\")
+                os.chdir(workPath+"\\"+name)
+
+                subprocess.check_output("clasp pull", shell=True) # Grabs files from Google Apps Script
+
+                return 0
