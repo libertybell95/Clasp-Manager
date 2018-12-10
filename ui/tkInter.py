@@ -1,7 +1,6 @@
 """Tkinter test."""
 
 import tkinter
-from tkinter.tix import *
 
 top = Tk()
 
