@@ -4,10 +4,10 @@ Library for claspTools.
 GAS = Google Apps Script
 """
 
-import os
 import json
-import re # Regular Expressions (https://docs.python.org/3.7/library/re.html)
-import subprocess # Used for calling/invoking CMD processes
+import os
+import re
+import subprocess
 
 from lib.dbTools import Tools
 
@@ -74,3 +74,17 @@ class claspTools:
                 os.chdir(workPath+"\\"+name)
 
                 subprocess.check_output("clasp pull", shell=True)  # Grabs files from Google Apps Script
+
+        def pushProject(self, name):
+                """
+                Pushes projcect/folder to GAS.
+
+                :param name: {string} - Name of project/folder to be pushed
+                """
+                if not isinstance(name, str):
+                        raise ValueError("pullFolder(): ")
+                
+                workPath = os.path.dirname(self.config["directory"]+"\\projects\\")
+                os.chdir(workPath+"\\"+name)
+
+                subprocess.check_output("clasp push", shell=True)  # Grabs files from Google Apps Script
