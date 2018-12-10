@@ -7,8 +7,8 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) # Sets path to folder of f
 
 data = {
     "directory": os.path.dirname(os.getcwd()), # Directory of program folder
-    "dbName": "dbTools.py" # Name of central database
-    "version": "0.1"
+    "dbName": "dbTools.py", # Name of central database
+    "version": "0.1" # Version of Clasp-Manager
 }
 
 os.chdir("..")
