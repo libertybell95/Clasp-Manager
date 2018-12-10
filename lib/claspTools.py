@@ -17,9 +17,7 @@ class claspTools:
 
         def __init__(self):
                 """Init."""
-                # Imports config.json file and
-                # assigns the object to self.config
-                with open("config.json") as f:
+                with open("config.json") as f: # Imports config.json file and assgns the object to self.config
                         self.config = json.load(f)        
         
         def createProject(self, name, scriptID):
@@ -34,17 +32,18 @@ class claspTools:
                 elif not isinstance(scriptID, str):
                         raise ValueError("String not entered for scriptID.")
 
-                # Compiles directory string that represents projects folder
-                workPath = os.path.dirname(
+                workPath = os.path.dirname( # Compiles directory string that represent projects folder
                         self.config["directory"]+"\\projects\\")
 
                 # Changes working directory to projects folder
                 os.chdir(workPath)
                 newDir = "./" + name + "/"  # For use in os.makedirs
 
-                # If folder does not exist,
-                # make new folder and perform setup
                 if not os.path.exists(newDir):
+                        """
+                        If folder does not exist,
+                        make new folder and perform setup
+                        """
                         os.makedirs(newDir)
                         print("Created new project folder" + newDir)
 
