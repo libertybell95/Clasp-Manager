@@ -1,41 +1,58 @@
-# GAS = Google Apps Script
+"""
+Library for claspTools.
+
+GAS = Google Apps Script
+"""
 
 import os
 import json
-import re  # Regular Expressions (https://docs.python.org/3.7/library/re.html)
-import subprocess  # Used for calling/invoking CMD processes
+import re # Regular Expressions (https://docs.python.org/3.7/library/re.html)
+import subprocess # Used for calling/invoking CMD processes
 
-from dbTools import Tools
+from lib.dbTools import Tools
+
 
 class claspTools:
+        """Tools that call the Google Apps Script clasp service."""
+
         def __init__(self):
-            with open("config.json") as f: # Imports config.json file and assigns the object to self.config
-                    self.config = json.load(f)
-                
+                """Init."""
+                # Imports config.json file and
+                # assigns the object to self.config
+                with open("config.json") as f:
+                        self.config = json.load(f)        
+        
         def createProject(self, name, scriptID):
                 """
                 Create a new projects folder with nessecary setup files and pulls project from GAS.
 
-                :param name: {string} - Name of folder to be created \n
+                :param name: {string} - Name of folder to be created
                 :param name: {string} - scriptID to create .clasp.JSON file
                 """
                 if not isinstance(name, str):
-                        raise ValueError("createFolder(): String not entered for name.")
+                        raise ValueError("String not entered for name.")
                 elif not isinstance(scriptID, str):
-                        raise ValueError("createFolder(): String not entered for scriptID.")
-                
-                workPath = os.path.dirname(self.config["directory"]+"\\projects\\") # Compiles directory string that represents projects folder
+                        raise ValueError("String not entered for scriptID.")
 
-                os.chdir(workPath) # Changes working directory to projects folder
-                newDir = "./" + name + "/" # For use in os.makedirs
-                
-                if not os.path.exists(newDir): # If folder does not exist make new folder and perform setup
-                        os.makedirs(newDir)    
+                # Compiles directory string that represents projects folder
+                workPath = os.path.dirname(
+                        self.config["directory"]+"\\projects\\")
+
+                # Changes working directory to projects folder
+                os.chdir(workPath)
+                newDir = "./" + name + "/"  # For use in os.makedirs
+
+                # If folder does not exist,
+                # make new folder and perform setup
+                if not os.path.exists(newDir):
+                        os.makedirs(newDir)
                         print("Created new project folder" + newDir)
-                
-                        os.chdir(newDir)
 
-                        with open(".clasp.json", "w") as f: # Sets up initial .clasp.json file
+                        os.chdir(newDir)
+                        
+
+                        # Sets up initial .clasp.json file
+                        with open(".clasp.json", "w") as f: 
                                 data = {
                                         "scriptId": scriptID
                                 }
@@ -52,9 +69,9 @@ class claspTools:
                 if not isinstance(name, str):
                         raise ValueError("pullFolder(): ")
                 
-                workPath = os.path.dirname(self.config["directory"]+"\\projects\\")
+                workPath = os.path.dirname(
+                        self.config["directory"]+"\\projects\\"
+                        )
                 os.chdir(workPath+"\\"+name)
 
-                subprocess.check_output("clasp pull", shell=True) # Grabs files from Google Apps Script
-
-                return 0
+                subprocess.check_output("clasp pull", shell=True)  # Grabs files from Google Apps Script
