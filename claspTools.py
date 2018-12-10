@@ -7,11 +7,12 @@ from dbTools import Tools
 
 class claspTools:
         def __init__(self):
-            self.test = 1
+            with open("config.json") as f: # Imports config.json file and assigns the object to self.config
+                    self.config = json.load(f)
                 
-        def createFolder(self, name, scriptID):
+        def createProject(self, name, scriptID):
                 """
-                Create a new projects folder with nessecary setup files
+                Create a new projects folder with nessecary setup files and pulls it from clasp
 
                 :param name: {string} - Name of folder to be created \n
                 :param name: {string} - scriptID to create .clasp.JSON file
@@ -21,21 +22,24 @@ class claspTools:
                 elif not isinstance(scriptID, str):
                         raise ValueError("createFolder(): String not entered for scriptID.")
                 
-                with open("config.json") as f: # Gets directory from config.JSON to determine starting point
-                        workPath = os.path.dirname(json.load(f)["directory"]+"\\projects\\")
+                workPath = os.path.dirname(self.config["directory"]+"\\projects\\") # Compiles directory string that represents projects folder
 
-                os.chdir(workPath)
-                newDir = "./" + name + "/"
-                if not os.path.exists(newDir):
+                os.chdir(workPath) # Changes working directory to projects folder
+                newDir = "./" + name + "/" # For use in os.makedirs
+                
+                if not os.path.exists(newDir): # If folder does not exist make new folder and perform setup
                         os.makedirs(newDir)    
                         print("Created new project folder" + newDir)
+                
                         os.chdir(newDir)
 
-                with open(".clasp.json", "w") as f: # Sets up initial .clasp.json file
-                        data = {
-                                "scriptId": scriptID
-                        }
-                        json.dump(data, f, indent=4)
+                        with open(".clasp.json", "w") as f: # Sets up initial .clasp.json file
+                                data = {
+                                        "scriptId": scriptID
+                                }
+                                json.dump(data, f, indent=4)
+
+                        subprocess.check_output("clasp pull", shell=True) # Grabs files from Google Apps Script
 
 # def getList():
 #     cmdOut = subprocess.check_output("clasp list", shell=True).decode("UTF-8") # Fetches raw console output of 'clasp list'
