@@ -36,7 +36,8 @@ class Tools:
                 pName,
                 pDesc
             ])
-        return "(Table projects) Update successful"
+        
+        return "projectsInsert() successful."
 
     def printProjects(self):
         """Print a list of all projects."""
@@ -45,3 +46,5 @@ class Tools:
                 SELECT * FROM projects
             """)
             print(self.cur.fetchall())
+        
+        return "printProjects() successful."
