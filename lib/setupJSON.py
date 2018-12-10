@@ -11,6 +11,6 @@ data = {
     "version": "0.1" # Version of Clasp-Manager
 }
 
-os.chdir("..")
+os.chdir("..") # Changes directory so config.json is not put in /lib
 with open("config.json", "w") as outfile:
     json.dump(data, outfile, indent=4)
