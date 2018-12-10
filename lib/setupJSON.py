@@ -2,7 +2,7 @@
 import json
 import os
 
-os.chdir(os.path.dirname(os.path.realpath(__file__))) ## Sets path to folder of file
+os.chdir(os.path.dirname(os.path.realpath(__file__))) # Sets path to folder of file
 
 data = {
     "directory": os.path.dirname(os.getcwd()), # Directory of program folder
