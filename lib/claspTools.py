@@ -8,9 +8,7 @@ import json
 import os
 import re
 import subprocess
-
 from lib.dbTools import Tools
-
 
 class claspTools:
         """Tools that call the Google Apps Script clasp service."""
